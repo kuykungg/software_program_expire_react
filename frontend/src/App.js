@@ -8,7 +8,7 @@ function App() {
         .then(res => res.json())
         .then(data => console.log(data));
   },[]);
-  return 0 (data
+  return 0 (data);
 }
 
 export default App;
