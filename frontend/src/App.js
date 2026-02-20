@@ -5,10 +5,10 @@ import {useEffect} from "react";
 function App() {
   useEffect(() => {
     fetch("http://localhost:3001/hello")
-        .than(res => res.json())
-        .than(data => console.log(data));
+        .then(res => res.json())
+        .then(data => console.log(data));
   },[]);
-  return <h1>hR</h1>
+  return 0 (data
 }
 
 export default App;
