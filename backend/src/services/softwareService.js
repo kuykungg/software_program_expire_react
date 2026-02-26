@@ -8,7 +8,7 @@ async function createSoftware(){
             .insert(data)
             .returning("*");
 
-        return result[0];
+        return result[data];
     };
 
 }

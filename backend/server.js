@@ -6,7 +6,7 @@ require("dotenv").config();
 app.use(cors());
 app.use(express.json());
 const softwareRoutes = require('./src/routes/software.route');
-app.use('/api/software',softwareRoutes);
+app.use('/apiv1/software',softwareRoutes);
 app.get("/hello", (req, res) => {
    res.json({messge:"API work"});
 });
