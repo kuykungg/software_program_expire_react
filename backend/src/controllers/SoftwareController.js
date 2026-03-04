@@ -11,33 +11,27 @@ exports.createData = async(req,res) =>{
         console.log("Connected to database:", process.env.DB_NAME);
     }
 };
-exports.updateData = async(req,res) =>{
-    try{
+exports.updateData = async (req, res) => {
+    try {
         console.log(req.body);
-        const result = await softwareService.updateData(req.body);
-        res.status(201).json(result + "1");
-
+        const result = await softwareService.updateData(req.params.id, req.body);
+        res.status(200).json(result);
     } catch (error) {
-        res.status(500).json({error: error.message});
+        res.status(500).json({ error: error.message });
         console.log(error);
-        console.log("Connected to database:", process.env.DB_NAME);
     }
 };
-exports.deleteData = async(req,res) =>{
-    try{
-        console.log(req.body);
-        const result = await softwareService.deleteData(req.body);
-        res.status(201).json(result + "1");
-
+exports.deleteData = async (req, res) => {
+    try {
+        const result = await softwareService.deleteData(req.params.id);
+        res.status(200).json(result);
     } catch (error) {
-        res.status(500).json({error: error.message});
-        console.log(error);
-        console.log("Connected to database:", process.env.DB_NAME);
+        res.status(500).json({ error: error.message });
     }
 };
 exports.getdata = async (req, res) => {
     try {
-        const result = await SoftwareService.getAll();
+        const result = await softwareService.getAll();
         res.json(result);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -46,7 +40,7 @@ exports.getdata = async (req, res) => {
 
 exports.getdatabyid = async (req, res) => {
     try {
-        const result = await SoftwareService.getById(req.params.id);
+        const result = await softwareService.getById(req.params.id);
         res.json(result);
     } catch (err) {
         res.status(500).json({ error: err.message });

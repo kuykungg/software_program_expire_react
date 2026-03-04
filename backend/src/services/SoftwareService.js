@@ -13,10 +13,10 @@ module.exports = {
             throw new Error("Create data failed: " + err.message);
         }
     },
-    updateData: async (data) => {
+    updateData: async (id, data) => {
         try{
             const result = await knex("software")
-                .where("id")
+                .where("id", id)
                 .update(data)
                 .returning("*");
             return result[0];
@@ -33,7 +33,7 @@ module.exports = {
             throw new Error("Delete data failed: " + err.message);
         }
     },
-    getdata: async () => {
+    getAll: async () => {
         try {
             return await knex("software").select("*");
         } catch (err) {
@@ -41,7 +41,7 @@ module.exports = {
         }
     },
 
-    getdatabyid: async (id) => {
+    getById: async (id) => {
         try {
             const result = await knex("software")
                 .where({ id })
