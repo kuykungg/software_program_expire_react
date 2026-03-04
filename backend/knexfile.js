@@ -11,7 +11,7 @@ module.exports = {
       host: process.env.DB_HOST,
       user: process.env.DB_USER,
       password: process.env.DB_PASS,
-      database: process.env.DB_BANE,
+      database: process.env.DB_NANE,
       port: process.env.DB_PORT
     },
     pool: {
@@ -29,7 +29,7 @@ module.exports = {
       host: process.env.DB_HOST,
       user: process.env.DB_USER,
       password: process.env.DB_PASS,
-      database: process.env.DB_BANE,
+      database: process.env.DB_NANE,
       port: process.env.DB_PORT
     },
     pool: {
@@ -47,7 +47,7 @@ module.exports = {
       host: process.env.DB_HOST,
       user: process.env.DB_USER,
       password: process.env.DB_PASS,
-      database: process.env.DB_BANE,
+      database: process.env.DB_NANE,
       port: process.env.DB_PORT
     },
     pool: {
