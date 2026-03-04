@@ -1,23 +1,42 @@
 const knex = require("../config/db");
-
+const software = require("../models/software.model");
 module.exports = {
     createData: async (data) => {
         try {
-            const result = await knex("software")
-                .insert(data)
-                .returning("*");
-
+            const Data = new software({});
+                Data.program_name = data.program_name;
+                Data.program_vendor = data.program_vendor;
+                Data.description = data.description;
+                Data.license_key = data.license_key;
+                Data.seat_max = data.seat_max;
+                Data.seat_using = data.seat_using;
+                Data.seat_left = data.seat_max - data.seat_using;
+                Data.is_active = data.is_active;
+                Data.license_start_at = data.license_start_at;
+                Data.license_expire_at = data.license_expire_at;
+                const result = await knex("software").insert(Data);
             return result[0];
 
         } catch (err) {
             throw new Error("Create data failed: " + err.message);
         }
     },
-    updateData: async (id, data) => {
+    updateData: async (id, daTa) => {
         try{
+            const Data = new software({});
+            Data.program_name = daTa.program_name;
+            Data.program_vendor = daTa.program_vendor;
+            Data.description = daTa.description;
+            Data.license_key = daTa.license_key;
+            Data.seat_max = daTa.seat_max;
+            Data.seat_using = daTa.seat_using;
+            Data.seat_left = daTa.seat_max - daTa.seat_using;
+            Data.is_active = daTa.is_active;
+            Data.license_start_at = daTa.license_start_at;
+            Data.license_expire_at = daTa.license_expire_at;
             const result = await knex("software")
                 .where("id", id)
-                .update(data)
+                .update(Data)
                 .returning("*");
             return result[0];
         } catch (err) {
