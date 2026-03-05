@@ -10,4 +10,4 @@ app.use('/apiv1/software',softwareRoutes);
 app.get("/hello", (req, res) => {
    res.json({messge:"API work"});
 });
-app.listen(PORT,() => console.log("Server started on port 3000"));
+app.listen(PORT,() => console.log("Server started on port 3001"));
