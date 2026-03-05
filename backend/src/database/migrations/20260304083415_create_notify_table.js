@@ -5,7 +5,7 @@
 exports.up = function(knex) {
     return knex.schema.createTable("notify", (table) => {
         table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'));
-        table.uuid("psodftware_id");
+        table.uuid("software_id");
 
     })
   
