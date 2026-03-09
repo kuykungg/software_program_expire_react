@@ -13,4 +13,3 @@
         this.license_expire_at = data.license_expire_at;
     }
 }
-module.exports = Software;
