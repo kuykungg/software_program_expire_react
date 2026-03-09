@@ -8,8 +8,3 @@ exports.insert = async (data) =>{
         .returning("*");
     return result[0];
 };
-export async function gerNearExpirelicense(data){
-    const new noti =
-    return softwaredb('software')
-        .where('id', data) //??? need to fix
-}
