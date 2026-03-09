@@ -9,7 +9,7 @@ exports.up = function(knex) {
         table.string("program_vendor").notNullable();
         table.string("description");
         table.string('license_key');
-        table.integer('seat_max');
+        table.integer('seat_max').notNullable();
         table.integer('seat_using').notNullable();
         table.integer('seat_left').notNullable();
         table.boolean('is_active').defaultTo(true);
