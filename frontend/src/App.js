@@ -57,8 +57,8 @@ function App() {
                             <td>{item.seat_using}</td>
                             <td>{item.seat_left}</td>
                             <td>{item.is_active ? "Yes" : "No"}</td>
-                            <td>{item.license_start_at}</td>
-                            <td>{item.license_expire_at}</td>
+                            <td>{new Date(item.license_start_at).toLocaleDateString()}</td>
+                            <td>{new Date(item.license_expire_at).toLocaleDateString()}</td>
                             <td>{item.description}</td>
                         </tr>
                     ))}
