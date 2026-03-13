@@ -71,7 +71,7 @@ function App() {
             license_key: item.license_key,
             seat_max: item.seat_max,
             seat_using: item.seat_using,
-            is_active: item.is_active,
+            // is_active: item.is_active,
             license_start_at: item.license_start_at?.split("T")[0],
             license_expire_at: item.license_expire_at?.split("T")[0],
             description: item.description
@@ -125,10 +125,10 @@ function App() {
                 <input name="seat_using" type="number" placeholder="Seat Using"
                        value={form.seat_using} onChange={handleChange} />
 
-                <select name="is_active" value={form.is_active} onChange={handleChange}>
-                    <option value={true}>Active</option>
-                    <option value={false}>Inactive</option>
-                </select>
+                {/*<select name="is_active" value={form.is_active} onChange={handleChange}>*/}
+                {/*    <option value={true}>Active</option>*/}
+                {/*    <option value={false}>Inactive</option>*/}
+                {/*</select>*/}
 
                 <input name="license_start_at" type="date"
                        value={form.license_start_at} onChange={handleChange} />
