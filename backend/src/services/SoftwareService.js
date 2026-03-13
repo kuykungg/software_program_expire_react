@@ -43,6 +43,20 @@ module.exports = {
             throw new Error("Update data failed: " + err.message);
         }
     },
+    updatestatus: async ( is_active , id) => {
+        try{
+            console.log(is_active);
+            console.log(id);
+            const result = await  knex("software")
+                .where("id", id)
+                .update({is_active})
+                .returning("*");
+            return result[0];
+        }catch(err){
+            throw new Error("Update status failed: " + err.message);
+        }
+
+    },
     deleteData: async (id) => {
         try{
             const result = await knex("software").where("id", id).del();
