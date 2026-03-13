@@ -81,3 +81,7 @@ input[placeholder*="Search"] {
     border-radius: 8px;
     border: 1px solid #ddd;
 }
+.wide-table {
+    width: 100%;
+    table-layout: fixed;
+}
