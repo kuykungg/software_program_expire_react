@@ -1,3 +1,5 @@
-exports.servicetest = {
-    console.log("Service test");
-};
+module.exports ={
+    testservice: ()=> {
+        console.log("service test");
+}
+}
