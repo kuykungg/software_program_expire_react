@@ -46,6 +46,8 @@ exports.getdata = async (req, res) => {
         const result = await softwareService.getAll();
         res.json(result);
     } catch (err) {
+        console.log("PASSWORD type = ", typeof process.env.DB_PASS);
+        console.log("PASSWORD value =", JSON.stringify(process.env.DB_PASS));
         res.status(500).json({ error: err.message });
     }
 };

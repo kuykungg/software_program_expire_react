@@ -1,8 +1,11 @@
 // Update with your config settings.
 require("dotenv").config();
+const path = require("path");
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
+console.log("KNEXFILE LOADED!!!");
+console.log("MIGRATION DIR =", path.join(__dirname, "src", "database", "migrations"));
 module.exports = {
 
   development: {
@@ -10,8 +13,8 @@ module.exports = {
     connection: {
       host: process.env.DB_HOST,
       user: process.env.DB_USER,
-      password: process.env.DB_PASS,
-      database: process.env.DB_NANE,
+      password: String(process.env.DB_PASS),
+      database: process.env.DB_NAME,
       port: process.env.DB_PORT
     },
     pool: {
@@ -19,7 +22,7 @@ module.exports = {
       max: 10
     },
     migrations: {
-      directory: "./src/database/migrations"
+      directory: path.join(__dirname, "src", "database", "migrations")
     }
   },
 
@@ -29,7 +32,7 @@ module.exports = {
       host: process.env.DB_HOST,
       user: process.env.DB_USER,
       password: process.env.DB_PASS,
-      database: process.env.DB_NANE,
+      database: process.env.DB_NAME,
       port: process.env.DB_PORT
     },
     pool: {
@@ -47,7 +50,7 @@ module.exports = {
       host: process.env.DB_HOST,
       user: process.env.DB_USER,
       password: process.env.DB_PASS,
-      database: process.env.DB_NANE,
+      database: process.env.DB_NAME,
       port: process.env.DB_PORT
     },
     pool: {
