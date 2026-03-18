@@ -3,6 +3,14 @@
  * @returns { Promise<void> }
  */
 exports.up = function(knex) {
+    return knex.schema.createTable('notiry'),function (table){
+        table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'));
+        table.string('notify_title').notNullable();
+        table.string('notify_body');
+        table.data('notify_date');
+
+    }
+
   
 };
 
