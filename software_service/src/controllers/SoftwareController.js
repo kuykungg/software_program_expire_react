@@ -60,3 +60,6 @@ exports.getdatabyid = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+exports.rest = async (req, res) => {
+    res.json("connect passed");
+};
