@@ -1,9 +1,9 @@
 ﻿const knex = require("../../knex");
-const Software = require("../models/software");
-import softwaredb from "../config/db";
+const notify = require("../models/notify");
+import notifydb from "../config/db";
 
 exports.insert = async (data) =>{
-    const result = await knex(Software.table)
+    const result = await knex(notify.table)
         .insert((data))
         .returning("*");
     return result[0];
