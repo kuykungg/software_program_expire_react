@@ -1,13 +1,19 @@
-# Getting Started with Create React App
+# Getting Started with software_expire_service
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## This project be 3 main part
+1 notify service
 
-## Available Scripts
+2 software service
 
-In the project directory, you can run:
+3 notify service 
 
-### `npm start`
 
+## forstart dev with my project
+
+first of all you need to install node module on all part of project by:
+### `cd /[module name]` 
+than
+### `npm install`
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
