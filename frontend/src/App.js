@@ -6,7 +6,7 @@ dayjs.extend(utc);
 
 function App() {
     const [data, setData] = useState([]);
-    const [notify, setNotify] = useState(null);
+    const [notify, setNotify] = useState([]);
     const [search, setSearch] = useState("");
     const [editId, setEditId] = useState(null);
     const [editingStatusId, setEditingStatusId] = useState(null);
@@ -291,8 +291,19 @@ function App() {
             </div>
             <div className="notifications">
                 <h2>Notifications</h2>
-                {notify ? (
-                    <pre>{JSON.stringify(notify, null, 2)}</pre>
+
+                {notify.length > 0 ? (
+                    <div className="notify-list">
+                        {notify.map((item) => (
+                            <div className="notify-card" key={item.id}>
+                                <h3>{item.notify_title}</h3>
+                                <p>{item.notify_body}</p>
+                                <small>
+                                    {dayjs.utc(item.notify_date).local().format("DD/MM/YYYY HH:mm")}
+                                </small>
+                            </div>
+                        ))}
+                    </div>
                 ) : (
                     <p>No notifications yet.</p>
                 )}
