@@ -14,7 +14,7 @@ module.exports = {
                 if (diffday <= 7){
                     const Data = new notify({})
                     Data.notify_title = item.program_name + " will expire"
-                    Data.notify_body = item.program_name + "from" + item.program_vendor + " will expire" + "in "+diffday
+                    Data.notify_body = item.program_name + " from " + item.program_vendor + " will expire" + " in "+" "+diffday+""+"days"
                     Data.notify_date = new Date().toISOString();
                     const exist_data = await knex("notify")
                         .where("notify_title", Data.notify_title)
