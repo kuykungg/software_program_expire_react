@@ -6,6 +6,7 @@ dayjs.extend(utc);
 
 function App() {
     const [data, setData] = useState([]);
+    const [notify, setNotify] = useState(null);
     const [search, setSearch] = useState("");
     const [editId, setEditId] = useState(null);
     const [editingStatusId, setEditingStatusId] = useState(null);
@@ -27,6 +28,11 @@ function App() {
             .then(res => res.json())
             .then(data => setData(data));
     };
+    const loadnotify = () =>{
+        fetch("http://localhost:3002/apiv1/notify/read")
+        .then(res => res.json())
+            .then(notify => setNotify(notify));
+    }
     const nearExpire = data.filter(item =>{
         const expire = dayjs.utc(item.license_expire_at);
         const today = dayjs.utc();
@@ -36,6 +42,7 @@ function App() {
 
     useEffect(() => {
         loadData();
+        loadnotify();
     }, []);
 
     // Handle input change
@@ -280,6 +287,15 @@ function App() {
                     })}
                     </tbody>
                 </table>
+
+            </div>
+            <div className="notifications">
+                <h2>Notifications</h2>
+                {notify ? (
+                    <pre>{JSON.stringify(notify, null, 2)}</pre>
+                ) : (
+                    <p>No notifications yet.</p>
+                )}
             </div>
 
         </div>
