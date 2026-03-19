@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc"
+dayjs.extend(utc);
 
 function App() {
     const [data, setData] = useState([]);
     const [search, setSearch] = useState("");
     const [editId, setEditId] = useState(null);
-
+    const [editingStatusId, setEditingStatusId] = useState(null);
     const [form, setForm] = useState({
         program_name: "",
         program_vendor: "",
@@ -24,6 +27,12 @@ function App() {
             .then(res => res.json())
             .then(data => setData(data));
     };
+    const nearExpire = data.filter(item =>{
+        const expire = dayjs.utc(item.license_expire_at);
+        const today = dayjs.utc();
+        const diffDays = expire.diff(today, "day")
+        return diffDays >= 0 && diffDays <= 7;
+    });
 
     useEffect(() => {
         loadData();
@@ -88,6 +97,17 @@ function App() {
             loadData();
             resetForm();
         });
+
+    };
+    const updateStatus = (id, newStatus) => {
+        fetch(`http://localhost:3001/apiv1/software/updatestatus/${id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ is_active: newStatus })
+        }).then(() => {
+            setEditingStatusId(null);
+            loadData();
+        });
     };
 
     // Delete
@@ -111,7 +131,7 @@ function App() {
                 <h2>{editId ? "Edit Software" : "Create Software"}</h2>
 
                 <input name="program_name" placeholder="Program Name"
-                       value={form.program_name} onChange={handleChange} />handleChange
+                       value={form.program_name} onChange={handleChange} />
 
                 <input name="program_vendor" placeholder="Vendor"
                        value={form.program_vendor} onChange={handleChange} />
@@ -162,7 +182,7 @@ function App() {
                 <table>
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        {/*<th>ID</th>*/}
                         <th>Program</th>
                         <th>Vendor</th>
                         <th>License</th>
@@ -180,14 +200,31 @@ function App() {
                     <tbody>
                     {filteredData.map(item => (
                         <tr key={item.id}>
-                            <td>{item.id}</td>
+                            {/*<td>{item.id}</td>*/}
                             <td>{item.program_name}</td>
                             <td>{item.program_vendor}</td>
                             <td>{item.license_key}</td>
                             <td>{item.seat_max}</td>
                             <td>{item.seat_using}</td>
                             <td>{item.seat_left}</td>
-                            <td>{item.is_active ? "Active" : "Inactive"}</td>
+                            <td
+                                onClick={() => setEditingStatusId(item.id)}
+                                style={{ cursor: "pointer", minWidth: "90px" }}
+                            >
+                                {editingStatusId === item.id ? (
+                                    <select
+                                        autoFocus
+                                        defaultValue={item.is_active}
+                                        onChange={(e) => updateStatus(item.id, e.target.value === "true")}
+                                        onBlur={() => setEditingStatusId(null)}
+                                    >
+                                        <option value="true">Active</option>
+                                        <option value="false">Inactive</option>
+                                    </select>
+                                ) : (
+                                    <span>{item.is_active ? "Active" : "Inactive"}</span>
+                                )}
+                            </td>
                             <td>{new Date(item.license_start_at).toLocaleDateString()}</td>
                             <td>{new Date(item.license_expire_at).toLocaleDateString()}</td>
                             <td>{item.description}</td>
@@ -200,7 +237,51 @@ function App() {
                     ))}
                     </tbody>
                 </table>
+                <h2 >Near expire license table</h2>
+                <table className="wide-table">
+                    <thead>
+                    <tr>
+                        <th>program</th>
+                        <th>Vendor</th>
+                        <th>License</th>
+                        <th>Max</th>
+                        <th>Using</th>
+                        <th>Left</th>
+                        <th>Status</th>
+                        <th>Start</th>
+                        <th>Expire Date</th>
+                        <th>Date left</th>
+                        <th>description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {nearExpire.map(item =>{
+                        const expire = dayjs.utc(item.license_expire_at);
+                        const today = dayjs.utc()
+                        const diffDays = expire.diff(today, "day")
+                       return (
+                           <tr key={item.id}>
+                                <td>{item.program_name}</td>
+                                <td>{item.program_vendor}</td>
+                               <td>{item.license_key}</td>
+                               <td>{item.seat_max}</td>
+                               <td>{item.seat_using}</td>
+                               <td>{item.seat_left}</td>
+                               <td>{item.is_active ? "Active" : "Inactive"}</td>
+                               <td>{new Date(item.license_start_at).toLocaleDateString()}</td>
+                               <td>{new Date(item.license_expire_at).toLocaleDateString()}</td>
+                               <td style={{ color: "red", fontWeight: "bold" }}>
+                                   {diffDays} days
+                               </td>
+                               <td>{item.description}</td>
+                           </tr>
+
+                       );
+                    })}
+                    </tbody>
+                </table>
             </div>
+
         </div>
     );
 }

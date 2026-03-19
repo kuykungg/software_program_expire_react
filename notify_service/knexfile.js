@@ -10,8 +10,8 @@ module.exports = {
     connection: {
       host: process.env.DB_HOST,
       user: process.env.DB_USER,
-      password: process.env.DB_PASS,
-      database: process.env.DB_NANE,
+      password: process.env.DB_PASS.toString() ?? "",
+      database: process.env.DB_NAME,
       port: process.env.DB_PORT
     },
     pool: {
@@ -28,8 +28,8 @@ module.exports = {
     connection: {
       host: process.env.DB_HOST,
       user: process.env.DB_USER,
-      password: process.env.DB_PASS,
-      database: process.env.DB_NANE,
+      password: process.env.DB_PASS.toString() ??"",
+      database: process.env.DB_NAME,
       port: process.env.DB_PORT
     },
     pool: {
@@ -46,8 +46,8 @@ module.exports = {
     connection: {
       host: process.env.DB_HOST,
       user: process.env.DB_USER,
-      password: process.env.DB_PASS,
-      database: process.env.DB_NANE,
+      password: process.env.DB_PASS.toString()??"",
+      database: process.env.DB_NAME,
       port: process.env.DB_PORT
     },
     pool: {

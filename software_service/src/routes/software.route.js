@@ -10,4 +10,5 @@ router.patch("/updatestatus/:id",SoftwareController.updatestatus);
 router.delete("/delete/:id",SoftwareController.deleteData);
 router.get("/getdata",SoftwareController.getdata);
 router.get("/getdatabyid/:id",SoftwareController.getdatabyid);
+router.get("/rest",SoftwareController.rest)
 module.exports = router;
