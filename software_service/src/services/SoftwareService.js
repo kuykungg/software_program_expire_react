@@ -57,6 +57,17 @@ module.exports = {
         }
 
     },
+    updateseatusing: async(seat_using, id) => {
+      try{
+          const result = await knex("software")
+            .where("id", id)
+            .update({seat_using})
+            .returning("*");
+          return result[0];
+      } catch (err){
+          throw new Error("Update seatusing failed failed: " + err.message);
+      }
+    },
     deleteData: async (id) => {
         try{
             const result = await knex("software").where("id", id).del();
