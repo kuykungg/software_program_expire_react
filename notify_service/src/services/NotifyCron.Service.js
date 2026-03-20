@@ -7,7 +7,7 @@ module.exports = {
     async fetchData(){
         try{
             const response = await axios.get("http://localhost:3001/apiv1/software/getData")
-            console.log(JSON.stringify(response.data,null, 2));
+            // console.log(JSON.stringify(response.data,null, 2));
             const data = response.data;
             for(const item of data){
                 const diffday = dayjs(item.license_expire_at).diff(dayjs(),"day")

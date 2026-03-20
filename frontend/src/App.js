@@ -116,6 +116,14 @@ function App() {
             loadData();
         });
     };
+    const updateusingseat = (id, usingseat) => {
+        fetch(`http://localhost:3001/apiv1/software/updateusingseat/${id}`,{
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ using_seat: id })
+        })
+
+    }
 
     // Delete
     const deleteData = (id) => {
