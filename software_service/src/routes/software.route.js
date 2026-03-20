@@ -7,6 +7,7 @@ router.get('/',(req, res) =>{
 router.post("/create",SoftwareController.createData);
 router.put("/update/:id",SoftwareController.updateData);
 router.patch("/updatestatus/:id",SoftwareController.updatestatus);
+router.patch("/updateusingseat/:id",SoftwareController.updateusingseat)
 router.delete("/delete/:id",SoftwareController.deleteData);
 router.get("/getdata",SoftwareController.getdata);
 router.get("/getdatabyid/:id",SoftwareController.getdatabyid);
