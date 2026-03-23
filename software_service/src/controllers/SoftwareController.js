@@ -20,7 +20,8 @@ exports.updatestatus = async (req, res) => {
   try{
       const { is_active } = req.body;
       if(typeof is_active !== "boolean"){
-          return res.status(400).json({error: "Invalid active status"});
+
+           res.status(400).json({error: "Invalid active status"});
       }
       const result = await softwareService.updatestatus(is_active, req.params.id);
       res.status(200).json(result);
