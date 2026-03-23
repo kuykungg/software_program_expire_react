@@ -11,7 +11,7 @@ module.exports = {
             const data = response.data;
             for(const item of data){
                 const diffday = dayjs(item.license_expire_at).diff(dayjs(),"day")
-                if (diffday <= 7){
+                if (diffday <= 7 && diffday >= 0){
                     const Data = new notify({})
                     Data.notify_title = item.program_name + " will expire"
                     Data.notify_body = item.program_name + " from " + item.program_vendor + " will expire" + " in "+" "+diffday+""+"days"
@@ -23,6 +23,11 @@ module.exports = {
                         const result = await knex("notify").insert(Data);
 
                     }
+                }
+                if(diffday < 0){
+                    await knex("notify")
+                        .where("notify_title", `${item.program_name} will expire`)
+                        .del();
                 }
 
             }
