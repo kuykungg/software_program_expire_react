@@ -66,5 +66,6 @@ exports.getdatabyid = async (req, res) => {
 };
 exports.rest = async (req, res) => {
     res.json("connect passed");
+
 };
 

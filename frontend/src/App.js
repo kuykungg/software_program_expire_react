@@ -306,8 +306,9 @@ function App() {
                             <div className="notify-card" key={item.id}>
                                 <h3>{item.notify_title}</h3>
                                 <p>{item.notify_body}</p>
+
                                 <small>
-                                    {dayjs.utc(item.notify_date).local().format("DD/MM/YYYY HH:mm")}
+                                    {dayjs.utc(item.notify_date).local().format("DD/MM/YYYY HH:mm")}<button>delete</button>
                                 </small>
                             </div>
                         ))}
