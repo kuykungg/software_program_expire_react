@@ -116,14 +116,27 @@ function App() {
             loadData();
         });
     };
-    const updateusingseat = (id, usingseat) => {
-        fetch(`http://localhost:3001/apiv1/software/updateusingseat/${id}`,{
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ using_seat: id })
+    const deleteNotify = (id) => {
+        fetch(`http://localhost:3002/apiv1/notify/delete/${id}`, {
+            method: "DELETE"
         })
-
-    }
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error("Failed to delete notification");
+                }
+                return res.json().catch(() => null);
+            })
+            .then(() => loadnotify())
+            .catch((err) => console.error("Delete notify error:", err));
+    };
+    // const updateusingseat = (id, usingseat) => {
+    //     fetch(`http://localhost:3001/apiv1/software/updateusingseat/${id}`,{
+    //         method: "PATCH",
+    //         headers: { "Content-Type": "application/json" },
+    //         body: JSON.stringify({ using_seat: id })
+    //     })
+    //
+    // }
 
     // Delete
     const deleteData = (id) => {
@@ -308,7 +321,10 @@ function App() {
                                 <p>{item.notify_body}</p>
 
                                 <small>
-                                    {dayjs.utc(item.notify_date).local().format("DD/MM/YYYY HH:mm")}<button>delete</button>
+                                    {dayjs.utc(item.notify_date).local().format("DD/MM/YYYY HH:mm")}
+                                    <button className="btn-delete" onClick={() => deleteNotify(item.id)}>
+                                        Delete
+                                    </button>
                                 </small>
                             </div>
                         ))}
