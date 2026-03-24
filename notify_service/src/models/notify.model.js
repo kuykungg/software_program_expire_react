@@ -4,6 +4,7 @@ class notify{
         this.notify_title = data.notify_title;
         this.notify_body = data.notify_body;
         this.notify_date = data.notify_date;
+        this.software_id = data.software_id
     }
 }
 module.exports = notify;
