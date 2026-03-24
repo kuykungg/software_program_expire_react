@@ -14,7 +14,7 @@ const io = new Server(server,{
         methods: ["GET","POST"],
     }
 })
-app.set("io", io)
+
 io.on("connection", (socket) => {
     console.log("client connected:", socket.id);
 
@@ -22,7 +22,8 @@ io.on("connection", (socket) => {
         console.log("client disconnected:", socket.id);
     });
 });
-runCron();
+app.set("io", io)
+runCron(io);
 require("dotenv").config();
 app.use(cors());
 app.use(express.json());

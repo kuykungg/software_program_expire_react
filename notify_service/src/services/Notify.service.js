@@ -4,20 +4,23 @@ module.exports ={
     testservice: ()=> {
         console.log("service test");
     },
-    create: async (data)=>{
+    create: async (data, io)=>{
         try{
             const Data = new notify({});
             Data.notify_title = data.notify_title;
             Data.notify_body = data.notify_body;
             Data.notify_date = new Date().toISOString();
-            const result = await knex('notify').insert(Data);
+            const result = await knex('notify').insert(Data).returning("*");
+            if(io){
+                io.emit("notify:changed");
+            }
             return result[0];
 
         }catch(err){
             throw new Error("Create data failed: " + err.message);
         }
     },
-    update: async (id ,data)=>{
+    update: async (id ,data,io)=>{
         try{
             const Data = new notify({});
             Data.notify_title = data.notify_title;
@@ -27,14 +30,20 @@ module.exports ={
                 .where("id", id)
                 .update(Data)
                 .returning("*");
+            if(result[0] && io){
+                io.emit("notify:changed");
+            }
             return result[0];
         }catch(err){
             throw new Error("Update data failed: " + err.message);
         }
     },
-    delete: async (id)=>{
+    delete: async (id, io)=>{
         try {
-            const result = await knex('notify').where("id", id).del();
+            const deleted  = await knex('notify').where("id", id).del();
+            if(deleted > 0 && io){
+                io.emit("notify:changed");
+            }
             return { message: "Deleted", id };
         }catch(err) {
             throw new Error("Delete data failed: " + err.message);

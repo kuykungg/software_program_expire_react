@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc"
+import { socket } from "./socket";
 dayjs.extend(utc);
 
 function App() {
@@ -43,6 +44,21 @@ function App() {
     useEffect(() => {
         loadData();
         loadnotify();
+        socket.on("connect",() =>{
+           console.log("Connected!", socket.id);
+        });
+        socket.on("notify:changed", async() =>{
+            console.log("Notify changed!");
+            await loadnotify();
+        });
+        socket.on("disconnect", () => {
+            console.log("socket disconnected");
+        });
+        return () => {
+            socket.off("connect");
+            socket.off("notify:changed");
+            socket.off("disconnect");
+        };
     }, []);
 
     // Handle input change
