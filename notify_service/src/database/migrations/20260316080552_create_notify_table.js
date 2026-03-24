@@ -8,6 +8,7 @@ exports.up = function(knex) {
         table.string('notify_title').notNullable();
         table.string('notify_body');
         table.date('notify_date');
+        table.uuid('software_id').nullable();
 
     });
 

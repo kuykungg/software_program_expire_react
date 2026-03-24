@@ -2,6 +2,9 @@ const knex = require("../config/db");
 const software = require("../models/software.model");
 module.exports = {
     createData: async (data) => {
+        if(Number(data.seat_max) < Number(data.seat_using)){
+            throw new Error("seat using can't greater than seat max");
+        }
         try {
             const Data = new software({});
                 Data.program_name = data.program_name;
@@ -22,6 +25,9 @@ module.exports = {
         }
     },
     updateData: async (id, daTa) => {
+        if(Number(daTa.seat_max) < Number(daTa.seat_using)){
+            throw new Error("seat using can't greater than seat max");
+        }
         try{
             const Data = new software({});
             Data.program_name = daTa.program_name;
@@ -56,6 +62,17 @@ module.exports = {
             throw new Error("Update status failed: " + err.message);
         }
 
+    },
+    updateseatusing: async(seat_using, id) => {
+      try{
+          const result = await knex("software")
+            .where("id", id)
+            .update({seat_using})
+            .returning("*");
+          return result[0];
+      } catch (err){
+          throw new Error("Update seatusing failed failed: " + err.message);
+      }
     },
     deleteData: async (id) => {
         try{

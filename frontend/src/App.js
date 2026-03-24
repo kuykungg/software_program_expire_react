@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc"
+import { socket } from "./socket";
 dayjs.extend(utc);
 
 function App() {
@@ -43,6 +44,21 @@ function App() {
     useEffect(() => {
         loadData();
         loadnotify();
+        socket.on("connect",() =>{
+           console.log("Connected!", socket.id);
+        });
+        socket.on("notify:changed", async() =>{
+            console.log("Notify changed!");
+            await loadnotify();
+        });
+        socket.on("disconnect", () => {
+            console.log("socket disconnected");
+        });
+        return () => {
+            socket.off("connect");
+            socket.off("notify:changed");
+            socket.off("disconnect");
+        };
     }, []);
 
     // Handle input change
@@ -116,6 +132,27 @@ function App() {
             loadData();
         });
     };
+    const deleteNotify = (id) => {
+        fetch(`http://localhost:3002/apiv1/notify/delete/${id}`, {
+            method: "DELETE"
+        })
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error("Failed to delete notification");
+                }
+                return res.json().catch(() => null);
+            })
+            .then(() => loadnotify())
+            .catch((err) => console.error("Delete notify error:", err));
+    };
+    // const updateusingseat = (id, usingseat) => {
+    //     fetch(`http://localhost:3001/apiv1/software/updateusingseat/${id}`,{
+    //         method: "PATCH",
+    //         headers: { "Content-Type": "application/json" },
+    //         body: JSON.stringify({ using_seat: id })
+    //     })
+    //
+    // }
 
     // Delete
     const deleteData = (id) => {
@@ -298,8 +335,12 @@ function App() {
                             <div className="notify-card" key={item.id}>
                                 <h3>{item.notify_title}</h3>
                                 <p>{item.notify_body}</p>
+
                                 <small>
                                     {dayjs.utc(item.notify_date).local().format("DD/MM/YYYY HH:mm")}
+                                    <button className="btn-delete" onClick={() => deleteNotify(item.id)}>
+                                        Delete
+                                    </button>
                                 </small>
                             </div>
                         ))}

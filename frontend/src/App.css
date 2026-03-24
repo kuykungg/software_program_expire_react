@@ -117,3 +117,16 @@ input[placeholder*="Search"] {
 .notify-card small {
     color: #777;
 }
+.btn-delete {
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-delete:hover {
+    background-color: #d9363e;
+}

@@ -4,25 +4,42 @@ const notify = require("../models/notify.model");
 const dayjs = require("dayjs");
 dayjs.extend(require("dayjs/plugin/duration"));
 module.exports = {
-    async fetchData(){
+    async fetchData(io){
         try{
             const response = await axios.get("http://localhost:3001/apiv1/software/getData")
-            console.log(JSON.stringify(response.data,null, 2));
+            //console.log(JSON.stringify(response.data,null, 2));
             const data = response.data;
             for(const item of data){
                 const diffday = dayjs(item.license_expire_at).diff(dayjs(),"day")
-                if (diffday <= 7){
+                if (diffday <= 7 && diffday >= 0){
                     const Data = new notify({})
                     Data.notify_title = item.program_name + " will expire"
                     Data.notify_body = item.program_name + " from " + item.program_vendor + " will expire" + " in "+" "+diffday+""+"days"
                     Data.notify_date = new Date().toISOString();
+                    Data.software_id = item.id;
                     const exist_data = await knex("notify")
-                        .where("notify_title", Data.notify_title)
+                        .where("software_id", Data.software_id)
                         .first();
                     if (!exist_data){
                         const result = await knex("notify").insert(Data);
+                        if(io)
+                        {
+                            io.emit("notify:changed");
+
+                        }
+
 
                     }
+                }
+                if(diffday < 0){
+                    const deleted = await knex("notify")
+                        .where("software_id", item.id)
+                        .del();
+                    if(deleted > 0 && io)
+                    {
+                        io.emit("notify:changed");
+                    }
+
                 }
 
             }
