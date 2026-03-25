@@ -349,6 +349,9 @@ function App() {
                     <p>No notifications yet.</p>
                 )}
             </div>
+            <div>
+
+            </div>
 
         </div>
     );
