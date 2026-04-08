@@ -1,5 +1,4 @@
-﻿require("dotenv").config();
-const BASE_URL = process.env.SoftwareService;
+﻿const BASE_URL = "http://localhost:3001/apiv1/software";
 
 export async function getSoftware() {
     const res = await fetch(`${BASE_URL}/getdata`);
