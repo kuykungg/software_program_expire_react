@@ -1,0 +1,32 @@
+﻿.circle-chart {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+
+    /* 75% = 270deg */
+    background: conic-gradient(
+            #4f46e5 0deg 270deg,
+            #e5e7eb 270deg 360deg
+    );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* inner white circle (donut effect) */
+.circle-chart::before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: white;
+    border-radius: 50%;
+}
+
+.circle-chart span {
+    position: relative;
+    font-weight: bold;
+    font-size: 20px;
+}

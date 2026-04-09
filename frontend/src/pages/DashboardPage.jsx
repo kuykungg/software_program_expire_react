@@ -1,12 +1,12 @@
 ﻿import useSoftware from "../hooks/useSoftware";
 import useNotifications from "../hooks/useNotifications";
-
+import "../style/Dashboard.css";
 export default function DashboardPage() {
     const { data, nearExpire } = useSoftware();
     const { notify } = useNotifications();
 
     return (
-        <div>
+        <div className="dashboard">
             <h1>Dashboard</h1>
 
             <div style={{ display: "flex", gap: "16px", marginBottom: "20px" }}>
