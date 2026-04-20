@@ -4,6 +4,7 @@ import DashboardPage from "./pages/DashboardPage";
 import SoftwarePage from "./pages/SoftwarePage";
 import NotificationsPage from "./pages/NotificationsPage";
 import ReportsPage from "./pages/ReportsPage";
+import NotificationContainer from "./components/NotificationContainer";
 import "./App.css";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
         <BrowserRouter>
             <div className="container">
                 <Navbar />
+                <NotificationContainer />
 
                 <Routes>
                     <Route path="/" element={<DashboardPage />} />

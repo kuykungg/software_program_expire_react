@@ -2,9 +2,16 @@
 
 export default function Navbar() {
     const linkStyle = ({ isActive }) => ({
-        marginRight: "12px",
+        marginRight: "24px",
+        paddingBottom: "4px",
         textDecoration: "none",
-        fontWeight: isActive ? "bold" : "normal",
+        fontSize: "14px",
+        letterSpacing: "0.5px",
+        // Smoothly transition the color and border
+        transition: "all 0.2s ease-in-out",
+        color: isActive ? "#000000" : "#888888",
+        borderBottom: isActive ? "2px solid #000000" : "2px solid transparent",
+        fontWeight: "500",
     });
 
     return (
@@ -26,4 +33,5 @@ export default function Navbar() {
             </NavLink>
         </nav>
     );
+
 }
