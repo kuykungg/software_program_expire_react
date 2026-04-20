@@ -1,22 +1,19 @@
-﻿import SoftwareForm from "../components/SoftwareForm";
+﻿import { useNavigate } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 import SoftwareTable from "../components/SoftwareTable";
 import useSoftware from "../hooks/useSoftware";
 
 export default function SoftwarePage() {
     const software = useSoftware();
+    const navigate = useNavigate();
 
     return (
         <div>
             <h1>Software Licenses</h1>
 
-            <SoftwareForm
-                form={software.form}
-                editId={software.editId}
-                onChange={software.handleChange}
-                onSubmit={software.handleSubmit}
-                onCancel={software.resetForm}
-            />
+            <button onClick={() => navigate("/software/create")}>
+                Create Software
+            </button>
 
             <SearchBar
                 value={software.search}
@@ -29,7 +26,7 @@ export default function SoftwarePage() {
                     editingStatusId={software.editingStatusId}
                     setEditingStatusId={software.setEditingStatusId}
                     onStatusChange={software.handleStatusChange}
-                    onEdit={software.startEdit}
+                    onEdit={(id) => navigate(`/software/edit/${id}`)}
                     onDelete={software.handleDelete}
                 />
             </div>
