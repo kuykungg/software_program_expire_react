@@ -28,6 +28,6 @@ require("dotenv").config();
 app.use(cors());
 app.use(express.json());
 app.use('/apiv1/notify',notifyrouter);
-server.listen(PORT, () => {
+server.listen(PORT, "0.0.0.0", () => {
     console.log(`Listening on port ${PORT}`);
 });
